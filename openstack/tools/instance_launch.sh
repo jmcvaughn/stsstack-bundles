@@ -15,17 +15,9 @@ Usage:  <this script> <qty of instances> <glance image name>
   exit 1
 fi
 
-# Create Nova keypair. Don't clobber existing keyfile in case it is being used for multiple models at once.
-prvkey=~/testkey.priv
-pubkey=~/testkey.pub
-if ! openstack keypair show testkey; then
-    if [ -r $prvkey ] && [ -r $pubkey ]; then
-        openstack keypair create testkey --public-key $pubkey
-    else
-        openstack keypair create testkey > $prvkey
-        openstack keypair show testkey --public-key > $pubkey
-    fi
-    chmod 600 $prvkey
+# Create Nova keypair
+if ! openstack keypair show jvaughnserver; then
+	openstack keypair create jvaughnserver --public-key ~/.ssh/id_rsa.pub
 fi
 
 # Grab private network ID
@@ -40,6 +32,6 @@ fi
 
 # Create instances
 server_name="${image_name}-$(date +'%H%M%S')"
-openstack server create --wait --image $image_name --flavor $flavor --key-name testkey --nic net-id=${net_id} --min $instance_qty --max $instance_qty $server_name
+openstack server create --wait --image $image_name --flavor $flavor --key-name jvaughnserver --nic net-id=${net_id} --min $instance_qty --max $instance_qty $server_name
 
-echo 'Hint: use ssh -i ~/testkey.pem ubuntu@<ip> to access new instances (may also need a floating IP, see ./tools/float_all.sh).'
+echo 'Note: may also need a floating IP, see ./tools/float_all.sh.'
