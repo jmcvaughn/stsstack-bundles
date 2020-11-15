@@ -70,7 +70,6 @@ applications:
     options:
       debug: *debug
       verbose: *verbose
-      block-device: /var/disk.img
       ephemeral-unmount: "/mnt"
       overwrite: "true"
       glance-api-version: 2
