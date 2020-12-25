@@ -12,6 +12,7 @@ applications:
       debug: *debug
       verbose: *verbose
       bridge-mappings: physnet1:br-data
+      data-port: br-data:ens4
       openstack-origin: *openstack_origin
       enable-isolated-metadata: true
 relations:
