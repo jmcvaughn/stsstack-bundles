@@ -25,30 +25,24 @@ applications:
     constraints: mem=1G
     options:
       zone: 1
-      block-device: 'dummy'
+      block-device: /dev/sdb /dev/sdc /dev/sdd
       openstack-origin: *openstack_origin
-    storage:
-      block-devices: cinder,10G,1
   swift-storage-z2:
     num_units: __NUM_SWIFT_STORAGE_UNITS__
     charm: __CHARM_STORE____CHARM_CS_NS____CHARM_CH_PREFIX__swift-storage
     constraints: mem=1G
     options:
       zone: 2
-      block-device: 'dummy'
+      block-device: /dev/sdb /dev/sdc /dev/sdd
       openstack-origin: *openstack_origin
-    storage:
-      block-devices: cinder,10G,1
   swift-storage-z3:
     num_units: __NUM_SWIFT_STORAGE_UNITS__
     charm: __CHARM_STORE____CHARM_CS_NS____CHARM_CH_PREFIX__swift-storage
     constraints: mem=1G
     options:
       zone: 3
-      block-device: 'dummy'
+      block-device: /dev/sdb /dev/sdc /dev/sdd
       openstack-origin: *openstack_origin
-    storage:
-      block-devices: cinder,10G,1
 relations:
   - [ swift-proxy, keystone ]
   - [ swift-proxy, swift-storage-z1 ]
